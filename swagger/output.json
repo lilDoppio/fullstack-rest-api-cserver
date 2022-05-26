@@ -1,0 +1,291 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Rest API",
+    "description": "Rest API test task",
+    "version": "1.0.0"
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/": {
+      "post": {
+        "description": "Create new post",
+        "parameters": [
+          {
+            "name": "text",
+            "in": "body",
+            "description": "New todo content",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Content"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Array of new posts or empty array",
+            "schema": {
+              "$ref": "#/definitions/Content"
+            }
+          }
+        }
+      },
+      "get": {
+        "description": "Get all posts",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Array of all posts",
+            "schema": {
+              "$ref": "#/definitions/Posts"
+            }
+          }
+        }
+      },
+      "put": {
+        "description": "Update existing todo",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "body",
+            "description": "Existing post ID",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Changes"
+            }
+          },
+          {
+            "name": "changes",
+            "in": "body",
+            "description": "Existing post changes",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Changes"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Array of new Posts",
+            "schema": {
+              "$ref": "#/definitions/Posts"
+            }
+          }
+        }
+      },
+      "delete": {
+        "description": "Remove existing post",
+        "parameters": [
+          {
+            "name": "id, userId",
+            "in": "body",
+            "description": "Existing post ID and valid userId",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteParams"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Array of new posts or empty array",
+            "schema": {
+              "$ref": "#/definitions/Posts"
+            }
+          }
+        }
+      }
+    },
+    "/registration": {
+      "post": {
+        "description": "Create new post",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "New user registration",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "User created",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "description": "Create new post",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "User login",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "User successfully login",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      }
+    },
+    "/auth": {
+      "get": {
+        "description": "Create new post",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "User login check",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {}
+      }
+    }
+  },
+  "definitions": {
+    "Post": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number",
+          "example": 1
+        },
+        "title": {
+          "type": "string",
+          "example": "test Title"
+        },
+        "content": {
+          "type": "string",
+          "example": "test Content"
+        },
+        "userName": {
+          "type": "string",
+          "example": "Author"
+        },
+        "userId": {
+          "type": "number",
+          "example": 4
+        },
+        "image": {
+          "type": "string",
+          "example": "image.jpg"
+        }
+      }
+    },
+    "Posts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Post"
+      }
+    },
+    "Content": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "example": "test Title"
+        },
+        "content": {
+          "type": "string",
+          "example": "test Content"
+        },
+        "image": {
+          "type": "string",
+          "example": "image.jpg"
+        }
+      }
+    },
+    "Changes": {
+      "type": "object",
+      "properties": {
+        "changes": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "number",
+              "example": 1
+            },
+            "title": {
+              "type": "string",
+              "example": "test Title"
+            },
+            "content": {
+              "type": "string",
+              "example": "test Content"
+            },
+            "userName": {
+              "type": "string",
+              "example": "Author"
+            },
+            "userId": {
+              "type": "number",
+              "example": 4
+            },
+            "image": {
+              "type": "string",
+              "example": "image.jpg"
+            }
+          }
+        }
+      }
+    },
+    "DeleteParams": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number",
+          "example": 1
+        },
+        "userId": {
+          "type": "number",
+          "example": 4
+        }
+      }
+    },
+    "User": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number",
+          "example": 1
+        },
+        "email": {
+          "type": "string",
+          "example": "testUser@mail.ru"
+        },
+        "password": {
+          "type": "string",
+          "example": "testPssword"
+        },
+        "userName": {
+          "type": "string",
+          "example": "test User"
+        }
+      }
+    }
+  }
+}
